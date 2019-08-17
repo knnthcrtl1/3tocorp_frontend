@@ -1,0 +1,31 @@
+
+.login__component__content--image {
+    flex-basis: 50%;
+    text-align: center;
+    padding-left: 20px;
+}
+
+.login__component__content--title, .login__component__content--logo {
+    color: #3D76CC;
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    display: block;
+    text-transform: uppercase;
+    line-height: 36px;
+    text-align: center;
+}
+
+.login__component__content--sub--title{
+    color: #828282;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    display: block;
+}   
+
+.login__component__content--login--image img {
+    width: 100%;
+    max-width: 320px;
+}

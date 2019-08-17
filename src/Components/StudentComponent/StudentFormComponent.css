@@ -1,0 +1,48 @@
+.student__form__component button{
+    width: 100%;
+    background-color: #3D76CC;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.student__form__component {
+    background-color: #f2f2f2;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.student__form__component input[type=text], 
+.student__form__component  select, 
+.student__form__component input[type=number],
+.student__form__component input[type=date] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+.student__form__component--container--form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.student__form__component--left {
+    flex-basis: 50%;
+    margin: 0px 5px;
+}
+
+.student__form__component--right {
+    flex-basis: 50%;
+    margin: 0px 5px;
+}

@@ -1,0 +1,39 @@
+.student__component--container {
+    margin-top: 20px;
+    padding: 20px; 
+    border-radius: 6px;
+    background-color: #FFF;
+    box-shadow: 0 0 25px 0 #CCC;
+}
+
+.student__component--student--option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.add_button--student {
+    background: #3D76CC;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.student__component--data--table table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+}
+  
+.student__component--data--table td, th {
+border: 1px solid #dddddd;
+text-align: left;
+padding: 8px;
+font-size: 12px;
+}
+  
+.student__component--data--table tr:nth-child(even) {
+background-color: #dddddd;
+}

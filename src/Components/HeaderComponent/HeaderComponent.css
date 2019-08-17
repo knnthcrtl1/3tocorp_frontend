@@ -1,0 +1,30 @@
+.header__component {
+    padding: 15px 0px;
+    background-color: #ffffff;
+}
+
+.header__component__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__component__content--user--info span {
+    display: block;
+    text-align: right;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+span.header__component__content--logo {
+    font-size: 40px;
+    color: #3D76CC;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sub__header__component {
+    background-color: #3D76CC;
+    color: #ffffff;
+    padding: 5px 0px;
+    text-align: right;
+}
