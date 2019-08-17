@@ -28,9 +28,6 @@ class StudentFormComponent extends Component {
         e.preventDefault();
 
 
-        await this.props.onCloseModal();
-        await this.props.onSubmitMessage(true);
-
         const { firstname, middlename, lastname, address, birthday, age, email, telephone, mobile_number, gender, marital_status } = this.state;
 
         let data = JSON.stringify({
@@ -47,6 +44,8 @@ class StudentFormComponent extends Component {
             marital_status: marital_status
         });
 
+        const { students } = this.props;
+
         let url = 'https://backend-3tocorp.herokuapp.com/students/create';
 
         await axios.post(url, data, {
@@ -54,8 +53,12 @@ class StudentFormComponent extends Component {
                 'Content-Type': 'application/json;charset=UTF-8',
             }
         })
-            .then(res => {
+            .then(async res => {
                 console.log(res);
+
+                await this.props.onCloseModal();
+                await this.props.onSubmitMessage(true);
+
             })
             .catch(error => {
                 this.setState({
@@ -64,16 +67,6 @@ class StudentFormComponent extends Component {
                 console.log(error);
             })
 
-
-        // const studentArr = {
-        //     firstname: firstname,
-        //     middlename: middlename,
-        //     lastname: lastname,
-        // };
-
-        // const { students } = await this.props;
-
-        // await students.unshift(studentArr);
 
     }
 

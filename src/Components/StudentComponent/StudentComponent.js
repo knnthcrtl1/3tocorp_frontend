@@ -45,12 +45,6 @@ class StudentComponent extends Component {
 
     }
 
-    onSubmitFOrm = () => {
-        this.setState({
-            students: []
-        })
-    }
-
     onClickModalShow = () => {
 
         this.setState({
@@ -159,6 +153,7 @@ class StudentComponent extends Component {
                             onCloseModal={this.onCloseModal}
                             onSubmitMessage={this.onSubmitMessage}
                             students={students}
+                            onSubmitForm={this.onSubmitForm}
                         />
                     </ModalComponent>
                     : null
