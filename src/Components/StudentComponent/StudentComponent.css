@@ -1,3 +1,7 @@
+.student__component{
+    position: relative;
+}
+
 .student__component--container {
     margin-top: 20px;
     padding: 20px; 
@@ -36,4 +40,106 @@ font-size: 12px;
   
 .student__component--data--table tr:nth-child(even) {
 background-color: #dddddd;
+}
+
+/*  delete confirmation */
+.delete__confirmation {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25%;
+    text-align: center;
+    background-color: #fff;
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.7);
+}
+
+.delete__confirmation--title {
+    display: flex; 
+    align-items: center;
+    background-color: #FF6B6B;
+    text-align: left;
+    padding: 10px 15px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.delete__confirmation--title span{
+    flex: 1;
+}
+
+.delete__confirmation__description--title {
+    padding: 15px;
+    text-align: left;
+}
+
+.delete__confirmation--description {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.delete__confirmation--button--yes {
+    background-color: #FF6B6B;
+    border: 1px solid transparent;
+    color: #fff;
+    padding: 10px 15px;
+    width: 100%;
+    max-width: 110px;
+    border-radius: 8px;
+    margin-left: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete__confirmation--button--no {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    color: #333333;
+    padding: 10px 15px;
+    width: 100%;
+    max-width: 110px;
+    border-radius: 8px;
+    margin-left: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete__confirmation--button--no:hover{
+    background-color: #FF6B6B;
+    color: #ffffff;
+    border: 1px solid transparent;
+}
+
+.delete__confirmation--button--yes:hover {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    color: #333333;
+}
+
+.delete__confirmation--buttons {
+    padding: 0px 15px 15px 15px;
+    text-align: right;
+}
+
+.delete_-confirmation--close img {
+    width: 100%;
+    max-width: 10px;
+    cursor: pointer;
+}
+
+.delete_-confirmation--close {
+    text-align: right;
+}
+
+.data__table--edit, .data__table--delete{
+    cursor: pointer;
+    text-decoration: underline;
+    color: #3D76CC;
 }

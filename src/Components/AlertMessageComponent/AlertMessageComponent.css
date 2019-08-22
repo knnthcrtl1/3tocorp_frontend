@@ -1,0 +1,43 @@
+/*  alert message */
+
+.alert__message {
+    position: fixed;
+    left: 0;
+    top: 20px;
+    width: 100%;
+}
+
+.alert__message--container {
+    background-color: #5BC3A2;
+    width: 100%;
+    max-width: 270px;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    position: relative;
+}
+
+.alert__message--image img {
+    width: 100%;
+    max-width: 22px;
+}
+
+span.alert__message--title {
+    margin-left: 20px;
+    margin-top: -5px;
+    font-weight: bold;
+}
+
+.alert__message--close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+.alert__message--close img {
+    width: 100%;
+    max-width: 10px;
+}

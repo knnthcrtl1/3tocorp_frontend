@@ -3,8 +3,9 @@ import './StudentComponent.css';
 import axios from 'axios';
 import ModalComponent from '../ModalComponent/ModalComponent';
 import StudentFormComponent from './StudentFormComponent';
-import successImage from '../../assets/images/checked.png';
-
+import warningImage from '../../assets/images/exclamation-mark.png';
+import closeImage from '../../assets/images/close.png';
+import AlertMessageComponent from '../AlertMessageComponent/AlertMessageComponent';
 
 class StudentComponent extends Component {
 
@@ -13,11 +14,58 @@ class StudentComponent extends Component {
         showStudents: false,
         modalShow: false,
         modalContent: '',
-        submitMessage: false
+        submitMessage: false,
+        alertMessageTitle: 'Added Successfully!',
+        alertMessageType: 'success',
+        deleteConfirmation: false,
+        willDeleteId: '',
+        editStudentData: null,
+        onSubmitStudentFormType: '',
+    }
+
+    // Escape button / close all modal
+    escFunction = (e) => {
+        if (e.keyCode === 27) {
+            this.setState({
+                modalShow: false,
+                submitMessage: false,
+                deleteConfirmation: false
+            })
+        }
+    }
+
+
+    // fetch data
+    async componentDidMount() {
+
+        this.getStudents();
+
+        console.log('mounted')
+
+        await document.addEventListener("keydown", this.escFunction, false);
 
     }
 
-    async componentDidMount() {
+
+    // confirm message when clicking delete button
+    confirmMessage = (id) => {
+
+        this.setState({
+            deleteConfirmation: true,
+            willDeleteId: id
+        })
+
+    }
+
+    // close confirm message upon delete
+    closeConfirmMessage = () => {
+        this.setState({
+            deleteConfirmation: false
+        })
+    }
+
+    // fetch all students
+    getStudents = async () => {
 
         let url = 'https://backend-3tocorp.herokuapp.com/students/';
         await axios.get(url)
@@ -30,10 +78,37 @@ class StudentComponent extends Component {
             })
             .catch(e => console.log(e));
 
-        console.log('mounted')
-
     }
 
+    // confirmed delete student
+    confirmDeleteStudent = async () => {
+
+        const { willDeleteId } = this.state;
+
+        let url = `https://backend-3tocorp.herokuapp.com/students/${willDeleteId}`;
+        axios.delete(url)
+            .then(res => {
+                console.log(res);
+
+                // set delete confirmation, alert message, title and submit message
+                this.setState({
+                    deleteConfirmation: false,
+                    alertMessageTitle: 'Deleted Successfully!',
+                    alertMessageType: 'success',
+                    submitMessage: true
+                })
+
+                // refrehs data
+                this.getStudents();
+
+                // show alert message success
+                this.alertMessageTimeOut(true);
+
+            })
+            .catch(e => console.log(e));
+    }
+
+    // unmountcomponent remove all data
     async componentWillUnmount() {
 
         this.setState({
@@ -41,47 +116,77 @@ class StudentComponent extends Component {
             showStudents: false
         })
 
-        console.log('unmounted')
+        await document.removeEventListener("keydown", this.escFunction, false);
 
     }
 
-    onClickModalShow = () => {
+
+    // show student add modal
+    onClickAddStudentModalShow = () => {
 
         this.setState({
-            modalShow: true
-        })
-
-        // if (modalContent === 'student') {
-        //     this.setState({ modalContent: modalContent })
-        // }
+            modalShow: true,
+            editStudentData: {},
+            onSubmitStudentFormType: 'add-student',
+        });
 
     }
 
+    // show student edit modal
+    onClickEditStudentModalShow = (student) => {
+
+        this.setState({
+            modalShow: true,
+            editStudentData: student,
+            onSubmitStudentFormType: 'edit-student'
+        });
+
+
+    }
+
+    //close modal
     onCloseModal = () => {
         this.setState({
-            modalShow: false
+            modalShow: false,
         })
+
     }
 
-    onSubmitMessage = async (submitMessage) => {
+    // set value of alert message
+    onSubmitMessage = async (submitMessage, alertMessageTitle, alertMessageType) => {
 
         this.setState({
-            submitMessage: await submitMessage
+            submitMessage: await submitMessage,
+            alertMessageTitle: await alertMessageTitle,
+            alertMessageType: await alertMessageType
         })
 
+        this.alertMessageTimeOut(submitMessage);
+
+    }
+
+    // alert message pop up with set time out 3seconds
+    alertMessageTimeOut = async (submitMessage) => {
         if (submitMessage) {
-            await setTimeout(() => {
-                this.setState({ submitMessage: !submitMessage })
+            setTimeout(() => {
+                this.setState({
+                    submitMessage: !submitMessage,
+                    alertMessageTitle: '',
+                    alertMessageType: ''
+                })
             }, 3000)
         }
+    }
 
+    // close alert message
+    closeSubmitMessage = () => {
+        this.setState({ submitMessage: false })
     }
 
 
     render() {
 
-        const { students, showStudents, modalShow, submitMessage } = this.state;
-
+        const { students, showStudents, modalShow, submitMessage, deleteConfirmation, alertMessageTitle, alertMessageType, editStudentData, onSubmitStudentFormType } = this.state;
 
         return (
             <div className="student__component">
@@ -97,7 +202,7 @@ class StudentComponent extends Component {
                                     </form>
                                 </div>
                                 <div className="student__option--add--button">
-                                    <button className="add_button--student" onClick={this.onClickModalShow}>Add Student</button>
+                                    <button className="add_button--student" onClick={this.onClickAddStudentModalShow}>Add Student</button>
                                 </div>
                             </div>
                             <div className="student__component--data--table">
@@ -115,6 +220,7 @@ class StudentComponent extends Component {
                                             <th>Gender</th>
                                             <th>Email</th>
                                             <th>Marital Status</th>
+                                            <th>Options</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -126,7 +232,7 @@ class StudentComponent extends Component {
                                             students.map((student) => (
                                                 <tr key={student._id}>
                                                     <td>{student.firstname}</td>
-                                                    <td>{student.surname}</td>
+                                                    <td>{student.middlename}</td>
                                                     <td>{student.lastname}</td>
                                                     <td>{student.address}</td>
                                                     <td>{student.age}</td>
@@ -136,6 +242,11 @@ class StudentComponent extends Component {
                                                     <td>{student.gender}</td>
                                                     <td>{student.email}</td>
                                                     <td>{student.marital_status}</td>
+                                                    <td>
+                                                        <span className="data__table--edit" onClick={() => this.onClickEditStudentModalShow(student)}>Edit</span>
+                                                        <span> | </span>
+                                                        <span className="data__table--delete" onClick={() => this.confirmMessage(student._id)}>Delete</span>
+                                                    </td>
                                                 </tr>
                                             ))
                                         }
@@ -145,35 +256,60 @@ class StudentComponent extends Component {
                         </div>
                     </div>
                 </div>
-                {(modalShow) ?
-                    <ModalComponent
-                        onCloseModal={this.onCloseModal}
-                    >
-                        <StudentFormComponent
-                            onCloseModal={this.onCloseModal}
-                            onSubmitMessage={this.onSubmitMessage}
-                            students={students}
-                            onSubmitForm={this.onSubmitForm}
-                        />
-                    </ModalComponent>
-                    : null
+                {
+                    (modalShow) ?
+                        <ModalComponent
+                            onCloseModal={this.onCloseModal}>
+                            <StudentFormComponent
+                                onCloseModal={this.onCloseModal}
+                                onSubmitMessage={this.onSubmitMessage}
+                                students={students}
+                                onSubmitForm={this.onSubmitForm}
+                                editStudentData={editStudentData}
+                                onSubmitStudentFormType={onSubmitStudentFormType}
+                                getStudents={this.getStudents}
+                            />
+                        </ModalComponent>
+                        : null
                 }
                 {
-                    (submitMessage) ?
-                        <div className="submit__message">
-                            <div className="submit__message--container">
-                                <div className="submit__message--image">
-                                    <img src={successImage} alt="" />
+                    (deleteConfirmation) ?
+                        <div className="delete__confirmation">
+                            <div className="delete__confirmation--title">
+                                <span>Confirm </span>
+                                <span className="delete_-confirmation--close"><img src={closeImage} alt="" onClick={this.closeConfirmMessage} /></span>
+                            </div>
+                            <div className="delete__confirmation--description">
+                                <div className="delete__confirmation__desription--image">
+                                    <img src={warningImage} alt="" />
                                 </div>
-                                <span className="submit__message--title">
-                                    Successfully Added
-                      </span>
+                                <div className="delete__confirmation__description--title">
+                                    <div><span>Are you sure you want to delete this file.</span></div>
+                                    <div><span>You can't undo this action.</span></div>
+                                </div>
+                            </div>
+                            <div className="delete__confirmation--buttons">
+                                <button className="delete__confirmation--button--no" onClick={this.closeConfirmMessage}>No</button>
+                                <button className="delete__confirmation--button--yes" onClick={this.confirmDeleteStudent}>Yes</button>
                             </div>
                         </div>
                         : null
                 }
+                {
+                    (submitMessage) ?
+                        <AlertMessageComponent
+                            alertMessageType={alertMessageType}
+                            alertMessageTitle={alertMessageTitle}
+                            closeSubmitMessage={this.closeSubmitMessage}
+                        />
+                        : null
+                }
             </div>
         )
+
+
+
+
 
     }
 }
