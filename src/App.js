@@ -31,7 +31,7 @@ class App extends Component {
 
   render() {
 
-    const { route, mainRoute, submitMessage } = this.state;
+    const { route, mainRoute } = this.state;
 
     return (
       <div className="App">
