@@ -13,6 +13,8 @@ class App extends Component {
 
   componentDidMount() {
     console.log('mounted');
+
+    console.log(this.props.history);
   }
 
   render() {

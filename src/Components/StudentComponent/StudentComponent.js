@@ -8,7 +8,13 @@ import closeImage from '../../assets/images/close.png';
 import AlertMessageComponent from '../AlertMessageComponent/AlertMessageComponent';
 import HeaderComponent from '../HeaderComponent/HeaderComponent';
 
+import AuthHelperMethods from '../Authentication/AuthHelperMethods';
+
+import withAuth from '../Authentication/withAuth';
+
 class StudentComponent extends Component {
+
+    Auth = new AuthHelperMethods();
 
     state = {
         students: [],
@@ -86,8 +92,10 @@ class StudentComponent extends Component {
 
         const { willDeleteId } = this.state;
 
+        const token = localStorage.getItem('id_token');
+
         let url = `https://backend-3tocorp.herokuapp.com/students/${willDeleteId}`;
-        axios.delete(url)
+        axios.delete(url, { headers: { 'Authorization': token } })
             .then(res => {
                 console.log(res);
 
@@ -318,4 +326,4 @@ class StudentComponent extends Component {
     }
 }
 
-export default StudentComponent;
+export default withAuth(StudentComponent);

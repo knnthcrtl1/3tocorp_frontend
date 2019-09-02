@@ -107,7 +107,6 @@ class StudentFormComponent extends Component {
                     await this.props.onSubmitMessage(true, 'Updated Sucessfully!', 'success');
                     await this.props.getStudents();
 
-
                 })
                 .catch(error => {
                     this.setState({
