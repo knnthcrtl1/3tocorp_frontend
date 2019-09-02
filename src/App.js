@@ -1,61 +1,29 @@
 import React, { Component } from 'react';
 import './App.css';
-import LoginComponent from './Components/LoginComponent/LoginComponent';
 import HeaderComponent from './Components/HeaderComponent/HeaderComponent';
 import HomeComponent from './Components/HomeComponent/HomeComponent';
-import StudentComponent from './Components/StudentComponent/StudentComponent';
+import AuthHelperMethods from './Components/Authentication/AuthHelperMethods';
+
+//Our higher order component
+import withAuth from './Components/Authentication/withAuth';
 
 class App extends Component {
 
-  state = {
-    route: 'home',
-    mainRoute: 'student'
+  Auth = new AuthHelperMethods();
+
+  componentDidMount() {
+    console.log('mounted');
   }
-
-  onRouteChange = (route) => {
-    this.setState({ route: route });
-  }
-
-
-  // isModalContent = (modalContent) => {
-  //   this.setState({
-  //     modalContent: modalContent
-  //   })
-  // }
-
-  // isSignedInChange = (isSignedIn) => {
-  //   this.setState({
-  //     isSignedIn: isSignedIn
-  //   })
-  // }
 
   render() {
 
-    const { route, mainRoute } = this.state;
+    // console.log(route, true)
+    console.log("Rendering Appjs!")
 
     return (
       <div className="App">
-        {(route) === 'signin' ?
-          <LoginComponent
-            onRouteChange={this.onRouteChange}
-          />
-          : (route) === 'home' ?
-            <div>
-              <HeaderComponent
-                onRouteChange={this.onRouteChange}
-              />
-              {(mainRoute) === 'home' ?
-                <HomeComponent />
-                : (mainRoute) === 'student' ?
-                  <StudentComponent
-                    onClickModalShow={this.onClickModalShow}
-                  />
-                  : null
-              }
-            </div>
-            : null
-        }
-
+        <HeaderComponent />
+        <HomeComponent />
       </div>
     );
 
@@ -63,4 +31,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default withAuth(App);

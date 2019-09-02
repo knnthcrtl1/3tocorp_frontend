@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './LoginComponent.css';
 import LoginFormComponent from './LoginFormComponent/LoginFormComponent';
 import LoginRightComponent from './LoginRightComponent/LoginRightComponent';
-import axios from 'axios';
+import AuthHelperMethods from '../Authentication/AuthHelperMethods';
+// import axios from 'axios';
 
 class LoginComponent extends Component {
 
@@ -14,7 +15,10 @@ class LoginComponent extends Component {
             signInPassword: '',
             signInErrorMessage: false
         }
+
     }
+
+    Auth = new AuthHelperMethods();
 
     onEmailChange = (event) => {
         this.setState({
@@ -37,28 +41,37 @@ class LoginComponent extends Component {
             password: this.state.signInPassword
         })
 
-        let url = 'https://backend-3tocorp.herokuapp.com/users/signin';
-
-        await axios.post(url, data, {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
+        await this.Auth.login(data).then(res => {
+            if (res === false) {
+                return alert("Sorry those credentials don't exist!");
             }
+            this.props.history.replace('/');
         })
-            .then(res => {
-
-                if (res.status === 200) {
-                    this.props.onRouteChange('home');
-                }
-
-            })
-            .catch(error => {
-                this.setState({
-                    signInErrorMessage: true
-                })
-
-                console.log(error);
+            .catch(err => {
+                console.log(err);
             })
 
+
+        // let url = 'https://backend-3tocorp.herokuapp.com/users/signin';
+        // let url = 'http://localhost:3001/users/signin';
+
+        // await axios.post(url, data, {
+        //     headers: {
+        //         'Content-Type': 'application/json;charset=UTF-8',
+        //     }
+        // })
+        //     .then(res => {
+        //         if (res.status === 200) {
+        //             this.props.onRouteChange('home');
+        //         }
+        //         console.log(res.data.token);
+        //     })
+        //     .catch(error => {
+        //         this.setState({
+        //             signInErrorMessage: true
+        //         })
+        //         console.log(error);
+        //     })
     }
 
 

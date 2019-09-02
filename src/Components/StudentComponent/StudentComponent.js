@@ -6,6 +6,7 @@ import StudentFormComponent from './StudentFormComponent';
 import warningImage from '../../assets/images/exclamation-mark.png';
 import closeImage from '../../assets/images/close.png';
 import AlertMessageComponent from '../AlertMessageComponent/AlertMessageComponent';
+import HeaderComponent from '../HeaderComponent/HeaderComponent';
 
 class StudentComponent extends Component {
 
@@ -189,121 +190,124 @@ class StudentComponent extends Component {
         const { students, showStudents, modalShow, submitMessage, deleteConfirmation, alertMessageTitle, alertMessageType, editStudentData, onSubmitStudentFormType } = this.state;
 
         return (
-            <div className="student__component">
-                <div className="container">
-                    <div className="row">
-                        <div className="student__component--container">
-                            <div className="student__component--student--option">
-                                <div className="student__option--search">
-                                    <form>
+            <div>
+                <HeaderComponent />
+                <div className="student__component">
+                    <div className="container">
+                        <div className="row">
+                            <div className="student__component--container">
+                                <div className="student__component--student--option">
+                                    <div className="student__option--search">
+                                        {/* <form>
                                         <label>
                                             Search: <input type="text" placeholder="search by id, firstname and lastname..." alt="search by id, firstname and lastname..." />
                                         </label>
-                                    </form>
+                                    </form> */}
+                                    </div>
+                                    <div className="student__option--add--button">
+                                        <button className="add_button--student" onClick={this.onClickAddStudentModalShow}>Add Student</button>
+                                    </div>
                                 </div>
-                                <div className="student__option--add--button">
-                                    <button className="add_button--student" onClick={this.onClickAddStudentModalShow}>Add Student</button>
-                                </div>
-                            </div>
-                            <div className="student__component--data--table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Firstname</th>
-                                            <th>Surname</th>
-                                            <th>Lastname</th>
-                                            <th>Address</th>
-                                            <th>Age</th>
-                                            <th>Birthday</th>
-                                            <th>Mobile Number </th>
-                                            <th>Telephone</th>
-                                            <th>Gender</th>
-                                            <th>Email</th>
-                                            <th>Marital Status</th>
-                                            <th>Options</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {(!showStudents) ?
+                                <div className="student__component--data--table">
+                                    <table>
+                                        <thead>
                                             <tr>
-                                                <td nowrap="nowrap" colSpan="11" style={{ padding: '8px', textAlign: 'center' }} >Loading...</td>
+                                                <th>Firstname</th>
+                                                <th>Surname</th>
+                                                <th>Lastname</th>
+                                                <th>Address</th>
+                                                <th>Age</th>
+                                                <th>Birthday</th>
+                                                <th>Mobile Number </th>
+                                                <th>Telephone</th>
+                                                <th>Gender</th>
+                                                <th>Email</th>
+                                                <th>Marital Status</th>
+                                                <th>Options</th>
                                             </tr>
-                                            :
-                                            students.map((student) => (
-                                                <tr key={student._id}>
-                                                    <td>{student.firstname}</td>
-                                                    <td>{student.middlename}</td>
-                                                    <td>{student.lastname}</td>
-                                                    <td>{student.address}</td>
-                                                    <td>{student.age}</td>
-                                                    <td>{student.birthday}</td>
-                                                    <td>{student.mobile_number}</td>
-                                                    <td>{student.telephone}</td>
-                                                    <td>{student.gender}</td>
-                                                    <td>{student.email}</td>
-                                                    <td>{student.marital_status}</td>
-                                                    <td>
-                                                        <span className="data__table--edit" onClick={() => this.onClickEditStudentModalShow(student)}>Edit</span>
-                                                        <span> | </span>
-                                                        <span className="data__table--delete" onClick={() => this.confirmMessage(student._id)}>Delete</span>
-                                                    </td>
+                                        </thead>
+                                        <tbody>
+                                            {(!showStudents) ?
+                                                <tr>
+                                                    <td nowrap="nowrap" colSpan="11" style={{ padding: '8px', textAlign: 'center' }} >Loading...</td>
                                                 </tr>
-                                            ))
-                                        }
-                                    </tbody>
-                                </table>
+                                                :
+                                                students.map((student) => (
+                                                    <tr key={student._id}>
+                                                        <td>{student.firstname}</td>
+                                                        <td>{student.middlename}</td>
+                                                        <td>{student.lastname}</td>
+                                                        <td>{student.address}</td>
+                                                        <td>{student.age}</td>
+                                                        <td>{student.birthday}</td>
+                                                        <td>{student.mobile_number}</td>
+                                                        <td>{student.telephone}</td>
+                                                        <td>{student.gender}</td>
+                                                        <td>{student.email}</td>
+                                                        <td>{student.marital_status}</td>
+                                                        <td>
+                                                            <span className="data__table--edit" onClick={() => this.onClickEditStudentModalShow(student)}>Edit</span>
+                                                            <span> | </span>
+                                                            <span className="data__table--delete" onClick={() => this.confirmMessage(student._id)}>Delete</span>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {
-                    (modalShow) ?
-                        <ModalComponent
-                            onCloseModal={this.onCloseModal}>
-                            <StudentFormComponent
-                                onCloseModal={this.onCloseModal}
-                                onSubmitMessage={this.onSubmitMessage}
-                                students={students}
-                                onSubmitForm={this.onSubmitForm}
-                                editStudentData={editStudentData}
-                                onSubmitStudentFormType={onSubmitStudentFormType}
-                                getStudents={this.getStudents}
+                    {
+                        (modalShow) ?
+                            <ModalComponent
+                                onCloseModal={this.onCloseModal}>
+                                <StudentFormComponent
+                                    onCloseModal={this.onCloseModal}
+                                    onSubmitMessage={this.onSubmitMessage}
+                                    students={students}
+                                    onSubmitForm={this.onSubmitForm}
+                                    editStudentData={editStudentData}
+                                    onSubmitStudentFormType={onSubmitStudentFormType}
+                                    getStudents={this.getStudents}
+                                />
+                            </ModalComponent>
+                            : null
+                    }
+                    {
+                        (deleteConfirmation) ?
+                            <div className="delete__confirmation">
+                                <div className="delete__confirmation--title">
+                                    <span>Confirm </span>
+                                    <span className="delete_-confirmation--close"><img src={closeImage} alt="" onClick={this.closeConfirmMessage} /></span>
+                                </div>
+                                <div className="delete__confirmation--description">
+                                    <div className="delete__confirmation__desription--image">
+                                        <img src={warningImage} alt="" />
+                                    </div>
+                                    <div className="delete__confirmation__description--title">
+                                        <div><span>Are you sure you want to delete this file.</span></div>
+                                        <div><span>You can't undo this action.</span></div>
+                                    </div>
+                                </div>
+                                <div className="delete__confirmation--buttons">
+                                    <button className="delete__confirmation--button--no" onClick={this.closeConfirmMessage}>No</button>
+                                    <button className="delete__confirmation--button--yes" onClick={this.confirmDeleteStudent}>Yes</button>
+                                </div>
+                            </div>
+                            : null
+                    }
+                    {
+                        (submitMessage) ?
+                            <AlertMessageComponent
+                                alertMessageType={alertMessageType}
+                                alertMessageTitle={alertMessageTitle}
+                                closeSubmitMessage={this.closeSubmitMessage}
                             />
-                        </ModalComponent>
-                        : null
-                }
-                {
-                    (deleteConfirmation) ?
-                        <div className="delete__confirmation">
-                            <div className="delete__confirmation--title">
-                                <span>Confirm </span>
-                                <span className="delete_-confirmation--close"><img src={closeImage} alt="" onClick={this.closeConfirmMessage} /></span>
-                            </div>
-                            <div className="delete__confirmation--description">
-                                <div className="delete__confirmation__desription--image">
-                                    <img src={warningImage} alt="" />
-                                </div>
-                                <div className="delete__confirmation__description--title">
-                                    <div><span>Are you sure you want to delete this file.</span></div>
-                                    <div><span>You can't undo this action.</span></div>
-                                </div>
-                            </div>
-                            <div className="delete__confirmation--buttons">
-                                <button className="delete__confirmation--button--no" onClick={this.closeConfirmMessage}>No</button>
-                                <button className="delete__confirmation--button--yes" onClick={this.confirmDeleteStudent}>Yes</button>
-                            </div>
-                        </div>
-                        : null
-                }
-                {
-                    (submitMessage) ?
-                        <AlertMessageComponent
-                            alertMessageType={alertMessageType}
-                            alertMessageTitle={alertMessageTitle}
-                            closeSubmitMessage={this.closeSubmitMessage}
-                        />
-                        : null
-                }
+                            : null
+                    }
+                </div>
             </div>
         )
 
