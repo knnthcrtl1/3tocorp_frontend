@@ -27,10 +27,12 @@ class StudentFormComponent extends Component {
     onSubmitForm = async (e) => {
         e.preventDefault();
 
+        const token = localStorage.getItem('id_token');
+
+
         let { firstname, middlename, lastname, address, birthday, age, email, telephone, mobile_number, gender, marital_status } = this.state;
 
         if ((this.props.onSubmitStudentFormType) === 'add-student') {
-
 
             let data = JSON.stringify({
                 firstname: firstname,
@@ -46,11 +48,15 @@ class StudentFormComponent extends Component {
                 marital_status: marital_status
             });
 
-            let url = 'https://backend-3tocorp.herokuapp.com/students/create';
+            // let url = 'https://backend-3tocorp.herokuapp.com/students/create';
+
+            let url = 'http://localhost:3001/students/create';
+
 
             await axios.post(url, data, {
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8',
+                    'Authorization': token
                 }
             })
                 .then(async res => {
@@ -88,13 +94,18 @@ class StudentFormComponent extends Component {
 
             let url = `https://backend-3tocorp.herokuapp.com/students/${_id}`;
 
-            await axios.put(url, data, { headers: { 'Content-Type': 'application/json;charset=UTF-8', } })
+            await axios.put(url, data,
+                {
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Authorization': token
+                    }
+                })
                 .then(async res => {
 
                     await this.props.onCloseModal();
                     await this.props.onSubmitMessage(true, 'Updated Sucessfully!', 'success');
                     await this.props.getStudents();
-
 
                 })
                 .catch(error => {
