@@ -48,9 +48,9 @@ class StudentFormComponent extends Component {
                 marital_status: marital_status
             });
 
-            // let url = 'https://backend-3tocorp.herokuapp.com/students/create';
+            let url = 'https://backend-3tocorp.herokuapp.com/students/create';
 
-            let url = 'http://localhost:3001/students/create';
+            // let url = 'http://localhost:3001/students/create';
 
 
             await axios.post(url, data, {
