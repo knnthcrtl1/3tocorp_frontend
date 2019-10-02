@@ -9,7 +9,11 @@ export default class AuthHelperMethods {
 
         // Get a token from api server using the fetch api
         // let url = 'http://localhost:3001/users/signin';
+<<<<<<< Updated upstream
         let url = 'http://backend-3tocorp.herokuapp.com/users/signin/';
+=======
+        let url = 'https://backend-3tocorp.herokuapp.com/users/signin/';
+>>>>>>> Stashed changes
 
         await axios.post(url, data, {
             headers: {
@@ -34,10 +38,21 @@ export default class AuthHelperMethods {
 
     }
 
+<<<<<<< Updated upstream
     onChangeRoute = () => {
         this.props.history.replace('/student')
     }
 
+=======
+    test = () => {
+        this.props.history.replace('/student')
+    }
+
+    // onChangeRoute = () => {
+    //     this.props.history.replace('/student')
+    // }
+
+>>>>>>> Stashed changes
     loggedIn = () => {
         // Checks if there is a saved token and it's still valid
         const token = this.getToken() // Getting token from localstorage

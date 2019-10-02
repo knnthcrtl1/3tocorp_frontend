@@ -12,6 +12,7 @@ import AuthHelperMethods from '../Authentication/AuthHelperMethods';
 
 import withAuth from '../Authentication/withAuth';
 
+
 class StudentComponent extends Component {
 
     Auth = new AuthHelperMethods();
@@ -21,6 +22,12 @@ class StudentComponent extends Component {
         showStudents: false,
         modalShow: false,
         modalContent: '',
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+        submitMessage: false
+=======
+>>>>>>> Stashed changes
         submitMessage: false,
         alertMessageTitle: 'Added Successfully!',
         alertMessageType: 'success',
@@ -28,7 +35,15 @@ class StudentComponent extends Component {
         willDeleteId: '',
         editStudentData: null,
         onSubmitStudentFormType: '',
+<<<<<<< Updated upstream
     }
+=======
+        studentCount: 0,
+        pageNo: 1,
+        pageSize: 5
+    }
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
     // Escape button / close all modal
     escFunction = (e) => {
@@ -45,6 +60,7 @@ class StudentComponent extends Component {
     // fetch data
     async componentDidMount() {
 
+<<<<<<< Updated upstream
         this.getStudents();
 
         console.log('mounted')
@@ -74,14 +90,61 @@ class StudentComponent extends Component {
     // fetch all students
     getStudents = async () => {
 
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         let url = 'https://backend-3tocorp.herokuapp.com/students/';
         await axios.get(url)
+=======
+        this.getStudents();
+
+        console.log('mounted')
+
+        await document.addEventListener("keydown", this.escFunction, false);
+
+    }
+
+
+    // confirm message when clicking delete button
+    confirmMessage = (id) => {
+
+        this.setState({
+            deleteConfirmation: true,
+            willDeleteId: id
+        })
+
+    }
+
+    // close confirm message upon delete
+    closeConfirmMessage = () => {
+        this.setState({
+            deleteConfirmation: false
+        })
+    }
+
+    // fetch all students
+    getStudents = async () => {
+
+        const { pageNo, pageSize } = this.state;
+
+        let url = `https://backend-3tocorp.herokuapp.com/students?pageNo=${pageNo}&size=${pageSize}`;
+        await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': this.Auth.getToken()
+            }
+        })
+>>>>>>> Stashed changes
             .then(res => {
                 const students = res.data.message;
+                const studentCount = res.data.pages
                 this.setState({
                     students: students,
-                    showStudents: true
+                    showStudents: true,
+                    studentCount: studentCount
                 })
+
+                console.log(res.data);
             })
             .catch(e => console.log(e));
 
@@ -192,10 +255,28 @@ class StudentComponent extends Component {
         this.setState({ submitMessage: false })
     }
 
+    paginateOnClick = async (paginateNo) => {
+
+        await this.setState({
+            pageNo: paginateNo
+        })
+
+        await this.getStudents();
+
+    }
 
     render() {
 
+<<<<<<< Updated upstream
         const { students, showStudents, modalShow, submitMessage, deleteConfirmation, alertMessageTitle, alertMessageType, editStudentData, onSubmitStudentFormType } = this.state;
+=======
+<<<<<<< Updated upstream
+        const { students, showStudents, modalShow, submitMessage } = this.state;
+
+=======
+        const { students, showStudents, modalShow, submitMessage, deleteConfirmation, alertMessageTitle, alertMessageType, editStudentData, onSubmitStudentFormType, studentCount } = this.state;
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
         return (
             <div>
@@ -239,6 +320,15 @@ class StudentComponent extends Component {
                                                 <tr>
                                                     <td nowrap="nowrap" colSpan="11" style={{ padding: '8px', textAlign: 'center' }} >Loading...</td>
                                                 </tr>
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+=======
+>>>>>>> Stashed changes
                                                 :
                                                 students.map((student) => (
                                                     <tr key={student._id}>
@@ -263,7 +353,21 @@ class StudentComponent extends Component {
                                             }
                                         </tbody>
                                     </table>
+<<<<<<< Updated upstream
                                 </div>
+=======
+                                    <div>
+                                        {
+                                            <StudentPagination
+                                                studentCount={studentCount}
+                                                paginateOnClick={this.paginateOnClick}
+                                                pageNo={this.state.pageNo}
+                                            />
+                                        }
+                                    </div>
+                                </div>
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
                             </div>
                         </div>
                     </div>
@@ -318,12 +422,42 @@ class StudentComponent extends Component {
                 </div>
             </div>
         )
-
-
-
-
-
     }
+}
+
+<<<<<<< Updated upstream
+    }
+=======
+const StudentPagination = ({ studentCount, paginateOnClick, pageNo }) => {
+
+    let count = [];
+
+<<<<<<< Updated upstream
+
+
+
+
+=======
+    for (let index = 1; index < studentCount + 1; index++) {
+        count.push(index);
+>>>>>>> Stashed changes
+    }
+
+    return (
+        <div>
+            <div><span>Prev</span></div>
+            <div className="paginate__number">
+                {
+                    count.map(i => (
+                        <span style={(pageNo) === i ? { backgroundColor: '#3D76CC', color: '#ffffff' } : null} onClick={() => paginateOnClick(i)} key={i}>{i}</span>
+                    ))
+                }
+            </div>
+            <div><span>Next</span></div>
+        </div>
+    )
+
+>>>>>>> Stashed changes
 }
 
 export default withAuth(StudentComponent);

@@ -6,6 +6,10 @@ export default function withAuth(AuthComponent) {
 
     const Auth = new AuthHelperMethods();
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     return class AuthWrapped extends Component {
 
         state = {
@@ -13,10 +17,18 @@ export default function withAuth(AuthComponent) {
             loaded: false
         }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         /* In the componentDid<ount, we would want to do a couple of important tasks in order to verify the current users authentication status
         prior to granting them enterance into the app. */
         componentWillMount() {
             if (!Auth.loggedIn()) {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                 this.props.history.replace('/login')
             }
             else {
@@ -29,15 +41,22 @@ export default function withAuth(AuthComponent) {
                         loaded: true,
                     })
 
+<<<<<<< Updated upstream
                     console.log(confirm);
 
+=======
+>>>>>>> Stashed changes
                 }
                 /* Oh snap! Looks like there's an error so we'll print it out and log the user out for security reasons. */
                 catch (err) {
                     console.log(err);
                     Auth.logout()
+<<<<<<< Updated upstream
                     // this.props.history.replace('/login');
                     // console.log('/login')
+=======
+                    this.props.history.replace('/login');
+>>>>>>> Stashed changes
                 }
             }
         }
