@@ -12,6 +12,7 @@ import AuthHelperMethods from '../Authentication/AuthHelperMethods';
 
 import withAuth from '../Authentication/withAuth';
 
+
 class StudentComponent extends Component {
 
     Auth = new AuthHelperMethods();
@@ -28,6 +29,9 @@ class StudentComponent extends Component {
         willDeleteId: '',
         editStudentData: null,
         onSubmitStudentFormType: '',
+        studentCount: 0,
+        pageNo: 1,
+        pageSize: 5
     }
 
     // Escape button / close all modal
@@ -74,14 +78,25 @@ class StudentComponent extends Component {
     // fetch all students
     getStudents = async () => {
 
-        let url = 'https://backend-3tocorp.herokuapp.com/students/';
-        await axios.get(url)
+        const { pageNo, pageSize } = this.state;
+
+        let url = `https://backend-3tocorp.herokuapp.com/students?pageNo=${pageNo}&size=${pageSize}`;
+        await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': this.Auth.getToken()
+            }
+        })
             .then(res => {
                 const students = res.data.message;
+                const studentCount = res.data.pages
                 this.setState({
                     students: students,
-                    showStudents: true
+                    showStudents: true,
+                    studentCount: studentCount
                 })
+
+                console.log(res.data);
             })
             .catch(e => console.log(e));
 
@@ -192,10 +207,19 @@ class StudentComponent extends Component {
         this.setState({ submitMessage: false })
     }
 
+    paginateOnClick = async (paginateNo) => {
+
+        await this.setState({
+            pageNo: paginateNo
+        })
+
+        await this.getStudents();
+
+    }
 
     render() {
 
-        const { students, showStudents, modalShow, submitMessage, deleteConfirmation, alertMessageTitle, alertMessageType, editStudentData, onSubmitStudentFormType } = this.state;
+        const { students, showStudents, modalShow, submitMessage, deleteConfirmation, alertMessageTitle, alertMessageType, editStudentData, onSubmitStudentFormType, studentCount } = this.state;
 
         return (
             <div>
@@ -263,6 +287,15 @@ class StudentComponent extends Component {
                                             }
                                         </tbody>
                                     </table>
+                                    <div>
+                                        {
+                                            <StudentPagination
+                                                studentCount={studentCount}
+                                                paginateOnClick={this.paginateOnClick}
+                                                pageNo={this.state.pageNo}
+                                            />
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -318,12 +351,31 @@ class StudentComponent extends Component {
                 </div>
             </div>
         )
-
-
-
-
-
     }
+}
+
+const StudentPagination = ({ studentCount, paginateOnClick, pageNo }) => {
+
+    let count = [];
+
+    for (let index = 1; index < studentCount + 1; index++) {
+        count.push(index);
+    }
+
+    return (
+        <div>
+            <div><span>Prev</span></div>
+            <div className="paginate__number">
+                {
+                    count.map(i => (
+                        <span style={(pageNo) === i ? { backgroundColor: '#3D76CC', color: '#ffffff' } : null} onClick={() => paginateOnClick(i)} key={i}>{i}</span>
+                    ))
+                }
+            </div>
+            <div><span>Next</span></div>
+        </div>
+    )
+
 }
 
 export default withAuth(StudentComponent);
