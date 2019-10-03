@@ -143,3 +143,22 @@ background-color: #dddddd;
     text-decoration: underline;
     color: #3D76CC;
 }
+
+.paginate__number span {
+    padding: 10px;
+    cursor: pointer;
+    display: inline-block;
+    border-right: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    font-size: 13px;
+}
+
+.paginate__number > span:first-child {
+    border-left: 1px solid #dddddd;
+}
+
+.paginate__number {
+    margin-top: 10px;    
+    text-align: center;
+}

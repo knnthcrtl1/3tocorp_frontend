@@ -8,7 +8,8 @@ export default class AuthHelperMethods {
     login = async (data, route) => {
 
         // Get a token from api server using the fetch api
-        let url = 'http://localhost:3001/users/signin';
+        // let url = 'http://localhost:3001/users/signin';
+        let url = 'https://backend-3tocorp.herokuapp.com/users/signin/';
 
         await axios.post(url, data, {
             headers: {
@@ -33,9 +34,13 @@ export default class AuthHelperMethods {
 
     }
 
-    onChangeRoute = () => {
+    test = () => {
         this.props.history.replace('/student')
     }
+
+    // onChangeRoute = () => {
+    //     this.props.history.replace('/student')
+    // }
 
     loggedIn = () => {
         // Checks if there is a saved token and it's still valid
