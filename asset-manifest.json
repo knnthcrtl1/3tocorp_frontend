@@ -1,0 +1,33 @@
+{
+  "files": {
+    "static/js/0.4ede7ac8.chunk.js": "/3tocorp_frontend/static/js/0.4ede7ac8.chunk.js",
+    "static/js/0.4ede7ac8.chunk.js.map": "/3tocorp_frontend/static/js/0.4ede7ac8.chunk.js.map",
+    "main.css": "/3tocorp_frontend/static/css/main.6e988398.chunk.css",
+    "main.js": "/3tocorp_frontend/static/js/main.9af443d3.chunk.js",
+    "main.js.map": "/3tocorp_frontend/static/js/main.9af443d3.chunk.js.map",
+    "runtime~main.js": "/3tocorp_frontend/static/js/runtime~main.0d6f9361.js",
+    "runtime~main.js.map": "/3tocorp_frontend/static/js/runtime~main.0d6f9361.js.map",
+    "static/js/3.ea1c031e.chunk.js": "/3tocorp_frontend/static/js/3.ea1c031e.chunk.js",
+    "static/js/3.ea1c031e.chunk.js.map": "/3tocorp_frontend/static/js/3.ea1c031e.chunk.js.map",
+    "static/css/4.e13e0823.chunk.css": "/3tocorp_frontend/static/css/4.e13e0823.chunk.css",
+    "static/js/4.5ed6a1e0.chunk.js": "/3tocorp_frontend/static/js/4.5ed6a1e0.chunk.js",
+    "static/js/4.5ed6a1e0.chunk.js.map": "/3tocorp_frontend/static/js/4.5ed6a1e0.chunk.js.map",
+    "static/css/5.fa01e1a4.chunk.css": "/3tocorp_frontend/static/css/5.fa01e1a4.chunk.css",
+    "static/js/5.1af16a2b.chunk.js": "/3tocorp_frontend/static/js/5.1af16a2b.chunk.js",
+    "static/js/5.1af16a2b.chunk.js.map": "/3tocorp_frontend/static/js/5.1af16a2b.chunk.js.map",
+    "static/css/6.ce84c8f7.chunk.css": "/3tocorp_frontend/static/css/6.ce84c8f7.chunk.css",
+    "static/js/6.dc469902.chunk.js": "/3tocorp_frontend/static/js/6.dc469902.chunk.js",
+    "static/js/6.dc469902.chunk.js.map": "/3tocorp_frontend/static/js/6.dc469902.chunk.js.map",
+    "index.html": "/3tocorp_frontend/index.html",
+    "precache-manifest.a9f655d0c607cb21183a966dcbf2ff87.js": "/3tocorp_frontend/precache-manifest.a9f655d0c607cb21183a966dcbf2ff87.js",
+    "service-worker.js": "/3tocorp_frontend/service-worker.js",
+    "static/css/4.e13e0823.chunk.css.map": "/3tocorp_frontend/static/css/4.e13e0823.chunk.css.map",
+    "static/css/5.fa01e1a4.chunk.css.map": "/3tocorp_frontend/static/css/5.fa01e1a4.chunk.css.map",
+    "static/css/6.ce84c8f7.chunk.css.map": "/3tocorp_frontend/static/css/6.ce84c8f7.chunk.css.map",
+    "static/css/main.6e988398.chunk.css.map": "/3tocorp_frontend/static/css/main.6e988398.chunk.css.map",
+    "static/media/index.css": "/3tocorp_frontend/static/media/Poppins-Regular.731a28a4.ttf",
+    "static/media/loginImg.png": "/3tocorp_frontend/static/media/loginImg.cfce86c1.png",
+    "static/media/strategy.png": "/3tocorp_frontend/static/media/strategy.736d5744.png",
+    "static/media/study.png": "/3tocorp_frontend/static/media/study.68481a9a.png"
+  }
+}
