@@ -144,7 +144,7 @@ background-color: #dddddd;
     color: #3D76CC;
 }
 
-.paginate__number span {
+.paginate__container span {
     padding: 10px;
     cursor: pointer;
     display: inline-block;
@@ -154,11 +154,18 @@ background-color: #dddddd;
     font-size: 13px;
 }
 
-.paginate__number > span:first-child {
+.paginate__container .paginat--prev{
     border-left: 1px solid #dddddd;
 }
 
-.paginate__number {
-    margin-top: 10px;    
-    text-align: center;
+.paginate__container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.active-prev-next {
+    background-color: #ddd;
+    cursor: not-allowed;
 }

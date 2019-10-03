@@ -31,7 +31,7 @@ class StudentComponent extends Component {
         onSubmitStudentFormType: '',
         studentCount: 0,
         pageNo: 1,
-        pageSize: 5
+        pageSize: 1
     }
 
     // Escape button / close all modal
@@ -217,6 +217,20 @@ class StudentComponent extends Component {
 
     }
 
+    onClickNextData = async (paginateNo) => {
+        await this.setState({
+            pageNo: paginateNo
+        })
+        await this.getStudents();
+    }
+
+    onClickPrevData = async (paginateNo) => {
+        await this.setState({
+            pageNo: paginateNo
+        })
+        await this.getStudents();
+    }
+
     render() {
 
         const { students, showStudents, modalShow, submitMessage, deleteConfirmation, alertMessageTitle, alertMessageType, editStudentData, onSubmitStudentFormType, studentCount } = this.state;
@@ -293,6 +307,8 @@ class StudentComponent extends Component {
                                                 studentCount={studentCount}
                                                 paginateOnClick={this.paginateOnClick}
                                                 pageNo={this.state.pageNo}
+                                                onClickNextData={this.onClickNextData}
+                                                onClickPrevData={this.onClickPrevData}
                                             />
                                         }
                                     </div>
@@ -354,7 +370,7 @@ class StudentComponent extends Component {
     }
 }
 
-const StudentPagination = ({ studentCount, paginateOnClick, pageNo }) => {
+const StudentPagination = ({ studentCount, paginateOnClick, pageNo, onClickNextData, onClickPrevData }) => {
 
     let count = [];
 
@@ -362,9 +378,12 @@ const StudentPagination = ({ studentCount, paginateOnClick, pageNo }) => {
         count.push(index);
     }
 
+    let prev = (pageNo) <= 1;
+    let next = (pageNo) < studentCount;
+
     return (
-        <div>
-            <div><span>Prev</span></div>
+        <div className="paginate__container">
+            <div><span className={`paginat--prev ${(prev) ? 'active-prev-next' : null}`} onClick={() => prev ? null : onClickPrevData(pageNo - 1)}>Prev </span></div>
             <div className="paginate__number">
                 {
                     count.map(i => (
@@ -372,7 +391,7 @@ const StudentPagination = ({ studentCount, paginateOnClick, pageNo }) => {
                     ))
                 }
             </div>
-            <div><span>Next</span></div>
+            <div><span onClick={() => next ? onClickNextData(pageNo + 1) : null} className={(next) ? null : 'active-prev-next'}> Next</span></div>
         </div>
     )
 
