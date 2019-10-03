@@ -1,6 +1,6 @@
 {
   "homepage": "https://knnthcrtl1.github.io/3tocorp_frontend/",
-  "name": "frontend",
+  "name": "3tocorp_frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
